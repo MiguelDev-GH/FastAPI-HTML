@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastAPI</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='/style.css') }}">
+</head>
+<body>
+
+    <form id='form_clientes'>
+
+    <h2 for="nome">Nome</h2>
+    <input type="text" id="input-nome" placeholder="Digite o nome">
+
+    <br>
+
+    <h2 for="nome">Idade</h2>
+    <input type="number" id="input-idade" placeholder="Digite a idade">
+
+    <br>
+
+    <button type="submit">Cadastrar</button>
+
+    <br><br><br>
+
+    <table>
+        <tr>
+            <th>Nome</th>
+            <th>Idade</th>
+        </tr>
+
+        {% for cliente in clientes %}
+
+        <tr>
+            <td>{{cliente.Nome}}</td>
+            <td>{{cliente.Idade}}</td>
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+    <br>
+
+    </form>
+
+    <button onclick=RemoverUltimo()>Excluir Último</button>
+    
+    <script src="{{ url_for('static', path='/script.js') }}"></script>
+
+</body>
+</html>
