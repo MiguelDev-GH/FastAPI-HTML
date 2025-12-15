@@ -14,6 +14,12 @@ document.getElementById("form_clientes").addEventListener("submit",async (e)=>{
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({Nome: nome, Idade: idade})
         })
+
+        if(response){
+            const resultado = await response.json()
+            console.log("Adicionado: ", resultado.cliente);
+        }
+
     } catch(error) {
         console.error("Erro ao adicionar o cliente, (" + error + ")")
     }
@@ -22,13 +28,20 @@ document.getElementById("form_clientes").addEventListener("submit",async (e)=>{
 
 // Arrumar isso daqui
 
-async function RemoverUltimo(e) {
+document.getElementById("btn_Excluir").addEventListener("click",async (e)=>{
     try {
         let response = await fetch("/excluirUltimo",{
-            method: "DELETE",
-            headers: {'Content-Type': 'application/json'},
+            method: "DELETE"
         })
+
+        if (response.ok) {
+            const resultado = await response.json();
+            console.log("Removido: ", resultado.cliente);
+        }
+
+        location.reload()
+
     } catch (error) {
         console.error("Erro ao remover o cliente, (" + error + ")")
     }
-}
+})

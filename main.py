@@ -34,8 +34,8 @@ async def adicionar_cliente(cliente: Cliente):
     
     return novo_cliente_dict
 
-@app.post("/excluirUltimo")
-async def excluirUltimo_cliente(cliente: Cliente):
-    clientes.pop()
-    
-    return clientes
+@app.delete("/excluirUltimo")
+async def excluirUltimo_cliente():
+    if clientes:
+        cliente_removido = clientes.pop()
+        return {"mensagem": "Cliente removido com sucesso", "cliente": cliente_removido}
