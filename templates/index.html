@@ -22,7 +22,11 @@
 
     <button type="submit">Cadastrar</button>
 
+    </form>
+
     <br><br><br>
+
+    {% if clientes %}
 
     <table>
         <tr>
@@ -43,9 +47,17 @@
 
     <br>
 
-    </form>
-
     <button id='btn_Excluir'>Excluir Último</button>
+
+    {% else %}
+
+    <h2> A lista está vazia </h2>
+
+    {% endif %}
+
+    <br><br>
+
+    <button id="btn_pegarClientes">Pegar Clientes</button>
     
     <script src="{{ url_for('static', path='/script.js') }}"></script>
 

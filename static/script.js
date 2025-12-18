@@ -28,20 +28,37 @@ document.getElementById("form_clientes").addEventListener("submit",async (e)=>{
 
 // Arrumar isso daqui
 
-document.getElementById("btn_Excluir").addEventListener("click",async (e)=>{
-    try {
-        let response = await fetch("/excluirUltimo",{
-            method: "DELETE"
-        })
+if(document.getElementById("btn_Excluir") != null){
+    document.getElementById("btn_Excluir").addEventListener("click",async (e)=>{
+        try {
+            let response = await fetch("/excluirUltimo",{
+                method: "DELETE"
+            })
 
-        if (response.ok) {
-            const resultado = await response.json();
-            console.log("Removido: ", resultado.cliente);
+            if (response.ok) {
+                const resultado = await response.json();
+                console.log("Removido: ", resultado.cliente);
+            }
+
+            location.reload()
+
+        } catch (error) {
+            console.error("Erro ao remover o cliente, (" + error + ")")
         }
+    })
+}
 
-        location.reload()
+const btn_pegarClientes = document.getElementById("btn_pegarClientes")
 
-    } catch (error) {
-        console.error("Erro ao remover o cliente, (" + error + ")")
-    }
+btn_pegarClientes.addEventListener("click",async () => {
+   try {
+        let response = await fetch("/pegarClientes")
+        let clientes = await response.json()
+
+        clientes.forEach(cliente => {
+            console.log(cliente.nome,":",cliente.idade)
+        });
+    } catch(error){
+        console.error("Erro ao tentar buscar o cliente",error)
+    }  
 })

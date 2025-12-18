@@ -21,7 +21,7 @@ class Cliente(BaseModel):
     Idade: int
 
 @app.get("/", response_class=HTMLResponse)
-async def init(request: Request):
+async def read_root(request: Request):
     
     context = {'request': request, 'clientes': clientes}
     return templates.TemplateResponse("index.html", context)
@@ -30,12 +30,25 @@ async def init(request: Request):
 async def adicionar_cliente(cliente: Cliente):
 
     novo_cliente_dict = cliente.model_dump()
-    clientes.append(novo_cliente_dict)
     
-    return novo_cliente_dict
+    if novo_cliente_dict not in clientes:
+        
+        clientes.append(novo_cliente_dict)
+    
+        return novo_cliente_dict
+       
+    else:
+        
+        return {"Mensagem": "Erro ao cadastrar o cliente, pois cliente já cadastrado:","cliente":novo_cliente_dict}
 
 @app.delete("/excluirUltimo")
 async def excluirUltimo_cliente():
+    
     if clientes:
         cliente_removido = clientes.pop()
+        
         return {"mensagem": "Cliente removido com sucesso", "cliente": cliente_removido}
+    
+@app.get("/pegarClientes")
+async def pegarClientes():
+    return clientes
